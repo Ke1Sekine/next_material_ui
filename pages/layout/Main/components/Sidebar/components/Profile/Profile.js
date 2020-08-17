@@ -1,5 +1,6 @@
 import React from 'react';
 // import { Link as RouterLink } from 'react-router-dom';
+import Link from 'next/link'
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
@@ -40,7 +41,6 @@ const Profile = props => {
       <Avatar
         alt="Person"
         className={classes.avatar}
-        // component={RouterLink}
         src={user.avatar}
         to="/settings"
       />

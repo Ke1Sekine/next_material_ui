@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-// import { Link as RouterLink } from 'react-router-dom';
-// import RouterLink from 'next/link'
 import Link from 'next/link'
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
@@ -18,10 +16,9 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1
   },
   signOutButton: {
-    marginLeft: theme.spacing(1)
-  },
-  logo: {
-    width: '25px'
+    marginLeft: theme.spacing(1),
+    width: "24px",
+    height: "24px"
   }
 }));
 
@@ -38,13 +35,12 @@ const Topbar = props => {
       className={clsx(classes.root, className)}
     >
       <Toolbar>
-        {/* <Link href="/"> */}
-          {/* <img
-            className={classes.logo} 
-            alt="Logo"
-            src="/images/avatars/profile.png"
-          /> */}
-        {/* </Link> */}
+        <Link href="/">
+        <img
+          alt="Logo"
+          src="/images/logos/logo--white.svg"
+        />
+        </Link>
         <div className={classes.flexGrow} />
         <Hidden mdDown>
           <IconButton color="inherit">

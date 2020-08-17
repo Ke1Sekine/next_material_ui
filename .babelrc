@@ -1,0 +1,39 @@
+{
+    "presets": [
+        "next/babel"
+    ],
+    "plugins": [
+        [
+            "module-resolver",
+            {
+                "root": [
+                    "."
+                ],
+                "alias": {
+                    "~": "./pages",
+                    "@components": "./pages/components",
+                    "@styles": "./styles",
+                    "@data": "./pages/data",
+                    "@contexts": "./pages/contexts",
+                    // "@data": "./pages/data",
+                    // "@libs": "./pages/libs",
+                    // "@server": "./pages/server"
+                }
+            }
+        ],
+        [
+            "babel-plugin-styled-components",
+            {
+                "ssr": true,
+                "displayName": true,
+                "preprocess": false
+            }
+            // "styled-components",
+            // {
+            //     "ssr": true,
+            //     "displayName": true,
+            //     "preprocess": false
+            // }
+        ]
+    ]
+}
