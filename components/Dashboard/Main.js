@@ -1,7 +1,7 @@
 import Head from 'next/head';
-import { Main as MainLayout } from '../layout/index';
+import { Main as MainLayout } from '@layout/index';
 import { ThemeProvider } from '@material-ui/styles';
-import theme from '../theme';
+import theme from '@theme';
 
 import { makeStyles } from '@material-ui/styles';
 import { Grid } from '@material-ui/core';

@@ -1,8 +1,8 @@
 import Head from 'next/head';
-import { Main as MainLayout } from '../layout/index';
+import { Main as MainLayout } from '@layout/index';
 import { ThemeProvider } from '@material-ui/styles';
-import theme from '../theme';
-import Dashboard from './Dashboard';
+import theme from '@theme';
+import Dashboard from '@components/Dashboard/Main';
 
 export default function main() {
   return (

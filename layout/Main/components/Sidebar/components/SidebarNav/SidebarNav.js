@@ -1,7 +1,6 @@
-/* eslint-disable react/no-multi-comp */
-/* eslint-disable react/display-name */
 import React, { forwardRef } from 'react';
-import Link from 'next/link'
+import { withRouter } from "next/router";
+import Link from 'next/link';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
@@ -55,32 +54,39 @@ const SidebarNav = props => {
   const { pages, className, ...rest } = props;
 
   const classes = useStyles();
+  console.log(props.router.pathname);
 
   return (
     <List
       {...rest}
       className={clsx(classes.root, className)}
     >
-      {pages.map(page => (
-        <ListItem
-          className={classes.item}
-          disableGutters
-          key={page.title}
-        >
-          <Link href={page.href}>
-            <Button
-              activeClassName={classes.active}
-              className={classes.button}
-              component={CustomRouterLink}
-              to={page.href}
-              href={page.href}
+        {pages.map(page => (
+          <div className={`${
+            props.router.pathname === page.href ? classes.active : ""
+            }`}
+          >
+            <ListItem
+              className={classes.item}
+              disableGutters
+              key={page.title}
             >
-              <div className={classes.icon}>{page.icon}</div>
-              {page.title}
-            </Button>
-          </Link>
-        </ListItem>
-      ))}
+              <Link
+                href={page.href}
+              >
+                <Button
+                  className={classes.button}
+                  component={CustomRouterLink}
+                  to={page.href}
+                  href={page.href}
+                >
+                  <div className={classes.icon}>{page.icon}</div>
+                  {page.title}
+                </Button>
+              </Link>
+            </ListItem>
+          </div>
+        ), props)}
     </List>
   );
 };
@@ -90,4 +96,4 @@ SidebarNav.propTypes = {
   pages: PropTypes.array.isRequired
 };
 
-export default SidebarNav;
+export default withRouter(SidebarNav);

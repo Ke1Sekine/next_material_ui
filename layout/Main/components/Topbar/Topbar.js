@@ -15,10 +15,11 @@ const useStyles = makeStyles(theme => ({
   flexGrow: {
     flexGrow: 1
   },
+  logo: {
+    height: "40px"
+  },
   signOutButton: {
     marginLeft: theme.spacing(1),
-    width: "24px",
-    height: "24px"
   }
 }));
 
@@ -37,8 +38,9 @@ const Topbar = props => {
       <Toolbar>
         <Link href="/">
         <img
+          className={classes.logo}
           alt="Logo"
-          src="/images/logos/logo--white.svg"
+          src="/images/logos/adminkit.svg"
         />
         </Link>
         <div className={classes.flexGrow} />

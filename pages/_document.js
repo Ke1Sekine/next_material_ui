@@ -2,10 +2,15 @@ import React from 'react';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheets } from '@material-ui/core/styles';
 
+/*
+  カスタムドキュメント
+  ※ サーバーサイド側 (Node.js側) でのみ実行される。
+  ※ https://nextjs.org/docs/#custom-document
+*/
 export default class MyDocument extends Document {
   render() {
     return (
-      <Html lang="en">
+      <Html lang="ja">
         <Head>
         </Head>
         <body>
@@ -19,6 +24,9 @@ export default class MyDocument extends Document {
 
 // `getInitialProps` belongs to `_document` (instead of `_app`),
 // it's compatible with server-side generation (SSG).
+// styled-componentsをサーバーサイドレンダリング
+// 詳細は下記を参照してください。
+// https://www.styled-components.com/docs/advanced#server-side-rendering
 MyDocument.getInitialProps = async (ctx) => {
   // Resolution order
   //

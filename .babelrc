@@ -11,10 +11,13 @@
                 ],
                 "alias": {
                     "~": "./pages",
-                    "@components": "./pages/components",
+                    "@components": "./components",
                     "@styles": "./styles",
-                    "@data": "./pages/data",
-                    "@contexts": "./pages/contexts",
+                    "@lib": "./libs",
+                    "@layout": "./layout",
+                    "@theme": "./theme",
+                    "@contexts": "./contexts",
+                    "@data": "./data",
                     // "@data": "./pages/data",
                     // "@libs": "./pages/libs",
                     // "@server": "./pages/server"
