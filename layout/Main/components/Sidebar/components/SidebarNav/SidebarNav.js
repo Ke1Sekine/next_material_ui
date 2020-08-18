@@ -65,11 +65,11 @@ const SidebarNav = props => {
           <div className={`${
             props.router.pathname === page.href ? classes.active : ""
             }`}
+            key={page.title}
           >
             <ListItem
               className={classes.item}
               disableGutters
-              key={page.title}
             >
               <Link
                 href={page.href}
