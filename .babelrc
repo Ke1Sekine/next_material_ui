@@ -13,7 +13,7 @@
                     "~": "./pages",
                     "@components": "./components",
                     "@styles": "./styles",
-                    "@lib": "./libs",
+                    "@lib": "./lib",
                     "@layout": "./layout",
                     "@theme": "./theme",
                     "@contexts": "./contexts",

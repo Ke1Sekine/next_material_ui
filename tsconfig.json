@@ -5,21 +5,6 @@
       "@/*": [
         "./pages/*"
       ],
-      "@components/*": [
-        "./pages/components/*"
-      ],
-      "@contexts/*": [
-        "./pages/contexts/*"
-      ],
-      "@data/*": [
-        "./pages/data/*"
-      ],
-      "@libs/*": [
-        "./pages/libs/*"
-      ],
-      "@server/*": [
-        "./pages/server/*"
-      ]
     },
     "target": "es5",
     "lib": [

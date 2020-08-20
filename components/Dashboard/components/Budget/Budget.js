@@ -7,6 +7,7 @@ import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import MoneyIcon from '@material-ui/icons/Money';
+import Api from '@lib/Api/Budget';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -56,14 +57,16 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function getBudget() {
-  //予算変動
-  let array = [0, -1, 1, -5, 5, 10, -10];
-  let result = array[Math.floor(Math.random() * array.length)] * 10000;
-  return result;
+async function getBudgetApi() {
+  const api = new Api();
+  let budget = api.run((json)=>{
+    return json.budget;
+  });
+  return budget;
 }
-function getBudgetPercent(new_budget, budget) {
-  var result = (new_budget - budget) / budget * 100;
+
+function getBudgetPercent(NewBudgetNum, budgetNum) {
+  var result = (NewBudgetNum - budgetNum) / budgetNum * 100;
   var n = 2; // 小数点第n位まで残す
   return Math.floor(result * Math.pow(10, n)) / Math.pow(10, n);
 }
@@ -77,17 +80,21 @@ function ArrowRender({ status, classes}) {
   }
 }
 
-const Budget = props => {
-  const {className, ...rest} = props;
+const Budget = (props) => {
+  const {budget, className, ...rest} = props;
+
   const classes = useStyles();
-  const [budget, setBudget] = useState(5300000);
+  const [budgetNum, setBudget] = useState(budget ? budget : 350000);
   const [budgetPercent, setBudgetPercent] = useState(0);
   const [status, setStatus] = useState(0);
+
+  //Dom表示後にハンドリング
   useEffect(() => {
-    const id = setInterval(() => {
-      let new_budget = budget + getBudget()
-      setBudget(new_budget);
-      let percent = getBudgetPercent(new_budget, budget);
+    const id = setInterval(async () => {
+      let NewBudgetNum = await getBudgetApi();
+      console.log(NewBudgetNum);
+      setBudget(NewBudgetNum);
+      let percent = getBudgetPercent(NewBudgetNum, budgetNum);
       setBudgetPercent(percent);
       if (percent === 0) {
         setStatus(0);
@@ -96,7 +103,8 @@ const Budget = props => {
       } else {
         setStatus(2);
       }
-    }, 60000);
+    }, 15000);
+    // }, 60000);
     return () => clearInterval(id);
   });
   
@@ -119,7 +127,7 @@ const Budget = props => {
             >
               予算
             </Typography>
-            <Typography variant="h3">{budget.toLocaleString()}円</Typography>
+            <Typography variant="h3">{budgetNum}円</Typography>
           </Grid>
           <Grid item>
             <Avatar className={classes.avatar}>
@@ -150,9 +158,40 @@ const Budget = props => {
   );
 };
 
+// // 必ずサーバーサイドで実行(Not:ビルド時に実行される)
+// Budget.getServerSideProps = async ({ req }) => {
+//   const budget = getBudgetApi();
+//       console.log(budget);
+//       return {
+//         props: {
+//           budget: budget
+//         }
+//     }
+// }
+
+export async function getServerSideProps() {
+  const budget = await getBudgetApi();
+  console.log(budget);
+  return {
+    props: {
+      budget: budget
+    }
+  }
+}
+Budget.getStaticProps = async ({ req }) => {
+  const budget = await getBudgetApi();
+  console.log(budget);
+  return {
+    props: {
+      budget: budget
+    }
+  }
+}
+
 
 Budget.propTypes = {
-  className: PropTypes.string
+  className: PropTypes.string,
+  budget: PropTypes.number
 };
 
 export default Budget;
