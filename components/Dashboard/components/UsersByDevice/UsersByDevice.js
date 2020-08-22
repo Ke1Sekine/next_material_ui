@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
@@ -15,6 +15,7 @@ import LaptopMacIcon from '@material-ui/icons/LaptopMac';
 import PhoneIphoneIcon from '@material-ui/icons/PhoneIphone';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import TabletMacIcon from '@material-ui/icons/TabletMac';
+import Api from '@lib/Api/UsersByDevice';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -38,16 +39,38 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+async function getUsersByDeviceApi() {
+  const api = new Api();
+  return api.run((json) => {
+    return json;
+  });
+}
+
 const UsersByDevice = props => {
   const { className, ...rest } = props;
 
   const classes = useStyles();
   const theme = useTheme();
+  const [DesktopNum, setDesktopNum] = useState(63);
+  const [TabletNum, setTabletNum] = useState(15);
+  const [MobileNum, setMobileNum] = useState(22);
+
+  //Dom表示後にハンドリング
+  useEffect(() => {
+    const id = setInterval(async () => {
+      console.log(await getUsersByDeviceApi());
+      let { DesktopNum, TabletNum, MobileNum } = await getUsersByDeviceApi();
+      setDesktopNum(DesktopNum);
+      setTabletNum(TabletNum);
+      setMobileNum(MobileNum);
+    }, 60000);
+    return () => clearInterval(id);
+  });
 
   const data = {
     datasets: [
       {
-        data: [63, 15, 22],
+        data: [DesktopNum, TabletNum, MobileNum],
         backgroundColor: [
           theme.palette.primary.main,
           theme.palette.error.main,
@@ -86,19 +109,19 @@ const UsersByDevice = props => {
   const devices = [
     {
       title: 'Desktop',
-      value: '63',
+      value: DesktopNum,
       icon: <LaptopMacIcon />,
       color: theme.palette.primary.main
     },
     {
       title: 'Tablet',
-      value: '15',
+      value: TabletNum,
       icon: <TabletMacIcon />,
       color: theme.palette.error.main
     },
     {
       title: 'Mobile',
-      value: '23',
+      value: MobileNum,
       icon: <PhoneIphoneIcon />,
       color: theme.palette.warning.main
     }

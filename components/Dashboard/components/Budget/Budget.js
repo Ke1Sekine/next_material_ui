@@ -92,7 +92,6 @@ const Budget = (props) => {
   useEffect(() => {
     const id = setInterval(async () => {
       let NewBudgetNum = await getBudgetApi();
-      console.log(NewBudgetNum);
       setBudget(NewBudgetNum);
       let percent = getBudgetPercent(NewBudgetNum, budgetNum);
       setBudgetPercent(percent);
